@@ -1,41 +1,39 @@
+// screens/HomeScreen.js
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import CustomHeader from '../components/CustomHeader';
+import AutoImageSlider from '../components/AutoImageSlider'; // Import AutoImageSlider component
+import HelpBox from '../components/HelpBox'; // Import HelpBox component
+import { colors } from '../styles/color';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
+  const categories = [
+    { id: 1, name: 'Category 1' },
+    { id: 2, name: 'Category 2' },
+  ];
+
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Ionicons name="menu" size={24} color="black" />
-        <Text style={styles.logo}>CROSSBEE</Text>
-        <View style={styles.headerIcons}>
-          <Ionicons name="search" size={24} color="black" />
-          <Ionicons name="cart" size={24} color="black" />
-          <Ionicons name="person" size={24} color="black" />
-        </View>
+      <CustomHeader />
+      <AutoImageSlider />
+      <View style={styles.backgroundContainer}>
+        <View style={styles.topHalf} />
+        <View style={styles.bottomHalf} />
+        <HelpBox />
       </View>
-
-      <View style={styles.banner}>
-        <Image style={styles.bannerImage} source={require('../assets/banner.png')} />
-      </View>
-
       <View style={styles.category}>
         <Text style={styles.categoryTitle}>Categories</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {/* Map through your categories here */}
-          <TouchableOpacity style={styles.categoryItem}>
-            <Text>Category 1</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.categoryItem}>
-            <Text>Category 2</Text>
-          </TouchableOpacity>
+          {categories.map(category => (
+            <TouchableOpacity style={styles.categoryItem} key={category.id}>
+              <Text>{category.name}</Text>
+            </TouchableOpacity>
+          ))}
         </ScrollView>
       </View>
-
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Best Deals</Text>
         <View style={styles.sectionContent}>
-          {/* Map through your best deals products here */}
           <View style={styles.productItem}>
             <Image style={styles.productImage} source={require('../assets/product.png')} />
             <Text>Product 1</Text>
@@ -46,9 +44,6 @@ const HomeScreen = () => {
           </View>
         </View>
       </View>
-
-      {/* Repeat for other sections like Upcoming Products, Latest Products, etc. */}
-
     </ScrollView>
   );
 };
@@ -58,30 +53,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 10,
-    backgroundColor: '#fff',
-    elevation: 2,
+  backgroundContainer: {
+    height: 200, // Adjust height as needed
+    position: 'relative',
+  },
+  topHalf: {
+    backgroundColor: colors.main,
+    height: '30%',
+  },
+  bottomHalf: {
+    backgroundColor: '#FFFFFF',
+    height: '50%',
   },
   logo: {
     fontSize: 24,
     fontWeight: 'bold',
-  },
-  headerIcons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: 80,
-  },
-  banner: {
-    marginVertical: 10,
-    backgroundColor: '#fff',
-  },
-  bannerImage: {
-    width: '100%',
-    height: 200,
   },
   category: {
     padding: 10,

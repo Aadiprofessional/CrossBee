@@ -4,6 +4,7 @@ export const colors = {
     inputBackground: '#EFEEEE',
     inputPlaceholder: 'rgba(120, 120, 120, 0.3)',
     buttonBackground: '#FCCC51',
+    main: '#FCCC51',
     textPrimary: '#000',
   };
   
